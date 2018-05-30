@@ -13,12 +13,12 @@ public class StockQuoteDao implements IStockQuoteDao{
 	static Map<String, List<String>> usrQuoteMap = new HashMap<String, List<String>>();
 	static {
 		List<String> vikasQuotes = new ArrayList<String>();
-		vikasQuotes.add("A");
-		vikasQuotes.add("B");
+		vikasQuotes.add("GOOG");
+		vikasQuotes.add("APPL");
 		List<String> poojaQuotes = new ArrayList<String>();
-		poojaQuotes.add("C");
-		poojaQuotes.add("D");
-		poojaQuotes.add("E");
+		poojaQuotes.add("GOOG");
+		poojaQuotes.add("APPL");
+		poojaQuotes.add("AMZN");
 		usrQuoteMap.put("vikas", vikasQuotes);
 		usrQuoteMap.put("pooja", poojaQuotes);
 	}
