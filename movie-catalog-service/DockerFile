@@ -1,0 +1,4 @@
+FROM openjdk:8
+ADD target/catalog-service.jar catalog-service.jar
+EXPOSE 8083
+ENTRYPOINT ["java", "-jar", "catalog-service.jar"]
