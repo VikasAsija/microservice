@@ -1,0 +1,75 @@
+version: "3"
+services: 
+     eureka-server:
+        build: .
+        ports:
+            - "8761"
+        networks: 
+            - myNetwork
+     auth-server:
+        build: 
+              context: ../../auth-server
+        ports:
+            - "8086"
+        environment: 
+            - eureka.client.serviceUrl.defaultZone=http://eureka-server:8761/eureka
+        links:
+            - eureka-server
+        networks: 
+            - myNetwork
+        depends_on:
+            - eureka-server
+     zuul-gateway-server:
+        build: 
+              context: ../../zuul-gateway/zuul-gateway
+        ports:
+            - "5555"
+        environment: 
+            - eureka.client.serviceUrl.defaultZone=http://eureka-server:8761/eureka
+        links:
+            - eureka-server
+        networks: 
+            - myNetwork
+        depends_on:
+            - eureka-server
+     rating-data-service:
+        build: 
+              context: ../../movie-rating-service/movie-rating-service
+        ports:
+            - "8082"
+        environment: 
+            - eureka.client.serviceUrl.defaultZone=http://eureka-server:8761/eureka
+        links:
+            - eureka-server
+        networks: 
+            - myNetwork
+        depends_on:
+            - eureka-server
+     movie-info-service:
+        build: 
+              context: ../../movie-info-service/movie-info-service
+        ports:
+            - "6060"
+        environment: 
+            - eureka.client.serviceUrl.defaultZone=http://eureka-server:8761/eureka
+        links:
+            - eureka-server
+        networks: 
+            - myNetwork
+        depends_on:
+            - eureka-server
+     movie-catalog-service:
+        build: 
+              context: ../../movie-catalog-service/movie-catalog-service
+        ports:
+            - "8083"
+        environment: 
+            - eureka.client.serviceUrl.defaultZone=http://eureka-server:8761/eureka
+        links:
+            - eureka-server
+        networks: 
+            - myNetwork
+        depends_on:
+            - eureka-server
+networks:
+        myNetwork:

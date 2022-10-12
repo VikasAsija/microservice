@@ -1,0 +1,23 @@
+version: "3"
+services: 
+     eureka-server:
+        build: .
+        ports:
+            - "8761"
+        networks: 
+            - myNetwork
+     auth-server:
+        build: 
+              context: ../../auth-server
+        ports:
+            - "8086"
+        environment: 
+            - eureka.client.serviceUrl.defaultZone=http://eureka-server:8761/eureka
+        links:
+            - eureka-server              
+        networks: 
+            - myNetwork
+        depends_on:
+            - eureka-server
+networks:
+        myNetwork:
